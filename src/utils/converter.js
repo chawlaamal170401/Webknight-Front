@@ -1,4 +1,8 @@
 export const addDataToCerti = (certificateTemplate, data, pictData) => {
+    if(document.getElementById("temp"))
+    {
+        document.getElementById("temp").remove();
+    }
   let a = document.createElement("div");
   console.log(typeof certificateTemplate);
   a.innerHTML = certificateTemplate;
@@ -35,9 +39,10 @@ export const issuePpt=async()=>{
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ content:document.getElementById("temp").innerHTML, user:2 }),
+      body: JSON.stringify({ content:document.getElementById("temp").outerHTML, user:2 }),
     };
     const response = await fetch(url, options);
+    alert("Issued certificate!")
 }
 export const checkUser=async()=>{
     const token=localStorage.getItem("token");

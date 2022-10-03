@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Auth from "./components/Auth";
 import Dashboard from "./components/Dashboard"
 import Form from "./components/Form"
+import Preview from "./components/Preview"
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/form/:id" element={<Form />} />
+      </Routes>
+      <Routes>
+        <Route path="/certi/:id" element={<Preview />} />
       </Routes>
     </BrowserRouter>
   )

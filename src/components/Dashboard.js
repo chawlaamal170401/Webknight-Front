@@ -14,6 +14,10 @@ function Dashboard() {
   const [history, setHistory] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
+    if(document.getElementById("temp"))
+    {
+        document.getElementById("temp").remove();
+    }
     async function getUser() {
       const user = await checkUser();
       if (!user) navigate("/login");
@@ -80,10 +84,12 @@ function Dashboard() {
           return (
             <Card className="dash-certi">
               <Card.Body>
-                <a href="#">
-                  <TbCertificate size={40} />
-                  {item.id}
-                </a>
+                <Link to={"certi/" + item.id}>
+                  <a href="#">
+                    <TbCertificate size={40} />
+                    {item.id}
+                  </a>
+                </Link>
               </Card.Body>
             </Card>
           );

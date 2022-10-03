@@ -1,5 +1,5 @@
 import Carousel from "react-bootstrap/Carousel";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import pic from "../img.jpg";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
@@ -13,6 +13,8 @@ import Footer from "./Footer";
 function Dashboard() {
   const [templates, setTemplates] = useState([]);
   const [history, setHistory] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
   useEffect(() => {
     if (document.getElementById("temp")) {
@@ -31,7 +33,7 @@ function Dashboard() {
       }
     );
     fetch(
-      "https://api-certi-portal.herokuapp.com/api/user/2/certificates"
+      "https://api-certi-portal.herokuapp.com/api/user/2/certificates?skip=0&take=100"
     ).then((data) => {
       data.json().then((res) => {
         setHistory([...res.data.certificate]);
@@ -42,11 +44,39 @@ function Dashboard() {
     localStorage.clear();
     navigate("/login");
   };
+
+  const handleIdCheck = async () => {
+    if (searchTerm.length === 0) return;
+
+    const url =
+      "https://api-certi-portal.herokuapp.com/api/certificate/" + searchTerm;
+
+    const response = await fetch(url);
+    const responseData = await response.json();
+
+    if (response.status === 200) alert("Certificate ID is valid");
+    else alert("Certificate ID is invalid");
+
+    setSearchTerm("");
+  };
+
   return (
     <div className="dash-container">
       <div className="dash-header">
         <h1>certifier</h1>
-        <input type="search" placeholder="Search Certificate using id" />
+        <div style={{ display: "flex", width: "50%", height: "50px" }}>
+          <input
+            type="search"
+            placeholder="Search Certificate using id"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: "100%", padding: "10px" }}
+          />
+          <button onClick={handleIdCheck} style={{ borderRadius: "20px" }}>
+            Check
+          </button>
+        </div>
+
         <div className="dash-icon">
           <a href="#">
             <FaRegUserCircle size={50} color="white" />

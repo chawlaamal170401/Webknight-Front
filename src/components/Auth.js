@@ -17,9 +17,11 @@ export default function Auth(props) {
       body: JSON.stringify({ username, password }),
     };
     const response = await fetch(url, options);
+    const responseData = await response.json();
 
-    if (response.status === 200) console.log("Logged in");
-    else console.log("Login failed");
+    if (response.status === 200) {
+      localStorage.setItem("token", responseData.token);
+    } else console.log("Login failed");
   };
 
   const handleRegister = async (e) => {
@@ -37,7 +39,8 @@ export default function Auth(props) {
 
     if (response.status === 200) {
       console.log("Registered");
-      console.log(response);
+      const res = await response.json();
+      console.log(res);
     } else console.log("Login failed");
   };
 

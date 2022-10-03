@@ -67,3 +67,21 @@ label {
   align-self: flex-end;
   justify-content: space-between;
 }
+
+.form-container{
+  margin-top: 50px;
+  text-align: center;
+}
+
+.dash-form{
+  margin: 0 50px;
+}
+
+.dash-form button{
+  margin-top: 25px;
+}
+
+.dash-form input{
+  margin-top: 20px;
+  width: 50%
+}

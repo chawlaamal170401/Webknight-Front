@@ -5,10 +5,18 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { TbCertificate } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { checkUser } from "../utils/converter";
 
 function Dashboard() {
   const [templates, setTemplates] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
+    async function getUser() {
+      const user = await checkUser();
+      if (!user) navigate("/login");
+    }
+    getUser();
     fetch("https://api-certi-portal.herokuapp.com/api/template").then(
       (data) => {
         data.json().then((res) => {
@@ -17,6 +25,10 @@ function Dashboard() {
       }
     );
   }, []);
+  const onLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <div className="dash-container">
       <div className="dash-header">
@@ -26,7 +38,13 @@ function Dashboard() {
           <a href="#">
             <FaRegUserCircle size={50} />
           </a>
-          <a href="#">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              onLogout();
+            }}
+          >
             <MdLogout size={50} />
           </a>
         </div>

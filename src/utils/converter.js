@@ -24,3 +24,19 @@ export const addDataToCerti = (certificateTemplate, data, pictData) => {
       link.click();
     });
 };
+export const checkUser=async()=>{
+    const token=localStorage.getItem("token");
+    const url = "https://api-certi-portal.herokuapp.com/auth/me";
+    const options = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Authorization":"Bearer "+token
+      },
+    };
+    const response = await fetch(url, options);
+    if(response.status!==200)return null;
+    const responseData = await response.json();
+    return responseData.data;
+}

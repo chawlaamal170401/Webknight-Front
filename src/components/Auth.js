@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { checkUser } from "../utils/converter";
 
 export default function Auth(props) {
   let [authMode, setAuthMode] = useState("signin");
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function getUser() {
+      const user = await checkUser();
+      if (user) navigate("/");
+    }
+    getUser();
+  }, []);
   const handleLogin = async (e) => {
     e.preventDefault();
     const url = "https://api-certi-portal.herokuapp.com/auth/login";
@@ -21,6 +30,7 @@ export default function Auth(props) {
 
     if (response.status === 200) {
       localStorage.setItem("token", responseData.token);
+      navigate("/")
     } else console.log("Login failed");
   };
 
@@ -41,6 +51,10 @@ export default function Auth(props) {
       console.log("Registered");
       const res = await response.json();
       console.log(res);
+      navigate("/login")
+      setAuthMode("signin");
+      setUsername("")
+      setPassword("")
     } else console.log("Login failed");
   };
 
@@ -66,6 +80,7 @@ export default function Auth(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Enter Username"
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -75,6 +90,7 @@ export default function Auth(props) {
                 type="password"
                 className="form-control mt-1"
                 placeholder="Enter password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

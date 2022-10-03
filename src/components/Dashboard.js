@@ -12,6 +12,7 @@ import Footer from "./Footer"
 
 function Dashboard() {
     const [templates, setTemplates] = useState([]);
+    const [history, setHistory] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
         async function getUser() {
@@ -26,12 +27,18 @@ function Dashboard() {
                 });
             }
         );
+        fetch(
+            "https://api-certi-portal.herokuapp.com/api/user/2/certificates"
+        ).then((data) => {
+            data.json().then((res) => {
+                setHistory([...res.data.certificate]);
+            });
+        });
     }, []);
     const onLogout = () => {
         localStorage.clear();
         navigate("/login");
-    }
-
+    };
     return (
         <div className="dash-container">
             <div className="dash-header">
@@ -41,11 +48,13 @@ function Dashboard() {
                     <a href="#">
                         <FaRegUserCircle size={50} color="white" />
                     </a>
-                    <a href="#" onClick={(e) => {
-                        e.preventDefault();
-                        onLogout();
-                    }}>
-
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            onLogout();
+                        }}
+                    >
                         <MdLogout size={50} color="white" />
                     </a>
                 </div>
@@ -67,34 +76,22 @@ function Dashboard() {
             <h4>History</h4>
 
             <div className="dash-grid">
-                <Card className="dash-certi">
-                    <Card.Body>
-                        <a href="#">
-                            <TbCertificate size={40} />
-                            Cid
-                        </a>
-                    </Card.Body>
-                </Card>
-                <Card className="dash-certi">
-                    <Card.Body>
-                        <a href="#">
-                            <TbCertificate size={40} />
-                            Cid
-                        </a>
-                    </Card.Body>
-                </Card>
-                <Card className="dash-certi">
-                    <Card.Body>
-                        <a href="#">
-                            <TbCertificate size={40} />
-                            Cid
-                        </a>
-                    </Card.Body>
-                </Card>
+                {history.map((item) => {
+                    return (
+                        <Card className="dash-certi">
+                            <Card.Body>
+                                <a href="#">
+                                    <TbCertificate size={40} />
+                                    {item.id}
+                                </a>
+                            </Card.Body>
+                        </Card>
+                    );
+                })}
             </div>
             <Footer />
         </div>
-    )
+    );
 }
 
 export default Dashboard;

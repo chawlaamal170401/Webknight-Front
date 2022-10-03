@@ -14,16 +14,31 @@ export const addDataToCerti = (certificateTemplate, data, pictData) => {
       document.querySelector("." + i).src = pictData[i];
   }
 
-  // eslint-disable-next-line no-undef
-  domtoimage
-    .toJpeg(document.getElementById("temp"), { quality: 0.95 })
-    .then(function (dataUrl) {
-      var link = document.createElement("a");
-      link.download = "my-image-name.jpeg";
-      link.href = dataUrl;
-      link.click();
-    });
+
 };
+export const downloadPpt=()=>{
+// eslint-disable-next-line no-undef
+  domtoimage
+  .toJpeg(document.getElementById("temp"), { quality: 0.95 })
+  .then(function (dataUrl) {
+    var link = document.createElement("a");
+    link.download = "my-image-name.jpeg";
+    link.href = dataUrl;
+    link.click();
+  });
+}
+export const issuePpt=async()=>{
+    const url = "https://api-certi-portal.herokuapp.com/api/certificate";
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content:document.getElementById("temp").innerHTML, user:2 }),
+    };
+    const response = await fetch(url, options);
+}
 export const checkUser=async()=>{
     const token=localStorage.getItem("token");
     const url = "https://api-certi-portal.herokuapp.com/auth/me";

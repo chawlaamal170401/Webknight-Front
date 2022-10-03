@@ -4,6 +4,7 @@ import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Auth from "./components/Auth";
 import Dashboard from "./components/Dashboard"
+import Form from "./components/Form"
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+      </Routes>
+      <Routes>
+        <Route path="/form/:id" element={<Form />} />
       </Routes>
     </BrowserRouter>
   )

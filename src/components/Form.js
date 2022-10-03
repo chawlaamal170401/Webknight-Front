@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addDataToCerti } from "../utils/converter";
+import { addDataToCerti, downloadPpt, issuePpt } from "../utils/converter";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -87,6 +87,8 @@ function DashForm() {
           Submit
         </button>
       </form>
+      <button onClick={()=>{downloadPpt()}}>Download</button>
+      <button onClick={()=>{issuePpt()}}>Issue</button>
     </div>
   );
 }

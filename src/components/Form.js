@@ -95,17 +95,20 @@ function DashForm() {
         onClick={() => {
           downloadPpt();
         }}
+        className="btn btn-primary"
+        style={{ marginRight: "50px" }}
       >
         Download
       </button>
-      <button
-        onClick={() => {
-          issuePpt();
-        }}
-      >
-        Issue
-      </button></>}
-      
+        <button
+          onClick={() => {
+            issuePpt();
+          }}
+          className="btn btn-primary"
+        >
+          Issue
+        </button></>}
+
     </div>
   );
 }

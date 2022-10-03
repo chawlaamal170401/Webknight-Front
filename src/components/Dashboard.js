@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { checkUser } from "../utils/converter";
 import Card from 'react-bootstrap/Card';
+import Footer from "./Footer"
 
 function Dashboard() {
     const [templates, setTemplates] = useState([]);
@@ -91,6 +92,7 @@ function Dashboard() {
                     </Card.Body>
                 </Card>
             </div>
+            <Footer />
         </div>
     )
 }

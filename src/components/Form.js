@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { addDataToCerti, downloadPpt, issuePpt } from "../utils/converter";
 import { useParams } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-
 
 function DashForm() {
   const [logo, setLogo] = useState("https://i.ibb.co/cDNy1Jq/6c4baa6e-3e9f-4919-b1a7-b8622892cf84file-741123.webp");
@@ -88,8 +85,8 @@ function DashForm() {
           Submit
         </button>
       </form>
-      <button onClick={()=>{downloadPpt()}}>Download</button>
-      <button onClick={()=>{issuePpt()}}>Issue</button>
+      <button onClick={() => { downloadPpt() }}>Download</button>
+      <button onClick={() => { issuePpt() }}>Issue</button>
     </div>
   );
 }

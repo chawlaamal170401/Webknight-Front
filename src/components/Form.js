@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { addDataToCerti } from "../utils/converter";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+
 
 function DashForm() {
   const [logo, setLogo] = useState("");

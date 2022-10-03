@@ -5,6 +5,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { TbCertificate } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import Card from 'react-bootstrap/Card';
 
 function Dashboard() {
     return (
@@ -14,10 +15,10 @@ function Dashboard() {
                 <input type="search" placeholder="Search Certificate using id" />
                 <div className="dash-icon">
                     <a href="#">
-                        <FaRegUserCircle size={50} />
+                        <FaRegUserCircle size={50} color="white" />
                     </a>
                     <a href="#">
-                        <MdLogout size={50} />
+                        <MdLogout size={50} color="white" />
                     </a>
                 </div>
             </div>
@@ -39,20 +40,30 @@ function Dashboard() {
 
             <div className="dash-grid">
                 <h4>History</h4>
-                <div className="dash-certi">
-                    <a href="#">
-                        <TbCertificate size={40} />
-                        Cid
-                    </a>
-                    <a href="#">
-                        <TbCertificate size={40} />
-                        Cid
-                    </a>
-                    <a href="#">
-                        <TbCertificate size={40} />
-                        Cid
-                    </a>
-                </div>
+                <Card className="dash-certi">
+                    <Card.Body>
+                        <a href="#">
+                            <TbCertificate size={40} />
+                            Cid
+                        </a>
+                    </Card.Body>
+                </Card>
+                <Card className="dash-certi">
+                    <Card.Body>
+                        <a href="#">
+                            <TbCertificate size={40} />
+                            Cid
+                        </a>
+                    </Card.Body>
+                </Card>
+                <Card className="dash-certi">
+                    <Card.Body>
+                        <a href="#">
+                            <TbCertificate size={40} />
+                            Cid
+                        </a>
+                    </Card.Body>
+                </Card>
             </div>
         </div>
     );

@@ -40,8 +40,16 @@ label {
 }
 
 .dash-container{
-  margin-top: 50px;
   text-align: center;
+  width: 100%;
+
+}
+
+.carousel-item{
+    height: 370px;
+} 
+.carousel-item img{
+    height: 370px;
 }
 
 .carousel-inner img {
@@ -49,8 +57,18 @@ label {
 }
 
 .dash-header{
+  background-color: #003580;
+  color: white;
   display: flex;
   justify-content: space-between;
+  padding: 10px 30px;
+}
+
+.dash-header input{
+  justify-content: space-around;
+  padding: 10px 0px;
+  border-radius: 50px;
+  width: 50%;
 }
  
 .templates{

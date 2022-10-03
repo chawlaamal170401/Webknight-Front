@@ -8,15 +8,15 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { checkUser } from "../utils/converter";
 import Card from "react-bootstrap/Card";
+import Footer from "./Footer";
 
 function Dashboard() {
   const [templates, setTemplates] = useState([]);
   const [history, setHistory] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    if(document.getElementById("temp"))
-    {
-        document.getElementById("temp").remove();
+    if (document.getElementById("temp")) {
+      document.getElementById("temp").remove();
     }
     async function getUser() {
       const user = await checkUser();
@@ -42,7 +42,6 @@ function Dashboard() {
     localStorage.clear();
     navigate("/login");
   };
-
   return (
     <div className="dash-container">
       <div className="dash-header">
@@ -95,6 +94,7 @@ function Dashboard() {
           );
         })}
       </div>
+      <Footer />
     </div>
   );
 }

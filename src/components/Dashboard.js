@@ -11,7 +11,7 @@ function Dashboard() {
     return (
         <div className="dash-container">
             <div className="dash-header">
-                <h1>Hello</h1>
+                <h1>certifier</h1>
                 <input type="search" placeholder="Search Certificate using id" />
                 <div className="dash-icon">
                     <a href="#">
@@ -22,6 +22,7 @@ function Dashboard() {
                     </a>
                 </div>
             </div>
+            <h1>Templates</h1>
             <div className="templates">
                 <Carousel variant="dark">
                     <Carousel.Item interval={1000}>
@@ -37,9 +38,9 @@ function Dashboard() {
                     </Carousel.Item>
                 </Carousel>
             </div>
+            <h4>History</h4>
 
             <div className="dash-grid">
-                <h4>History</h4>
                 <Card className="dash-certi">
                     <Card.Body>
                         <a href="#">

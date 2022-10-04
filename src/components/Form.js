@@ -4,16 +4,9 @@ import { useParams } from "react-router-dom";
 import { checkUser } from "../utils/converter";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 function DashForm() {
-  const [logo, setLogo] = useState(
-    "https://i.ibb.co/cDNy1Jq/6c4baa6e-3e9f-4919-b1a7-b8622892cf84file-741123.webp"
-  );
-  const [sign, setSign] = useState(
-    "https://i.ibb.co/23yn7dW/Whats-App-Image-2022-09-15-at-12-35-01-AM.jpg"
-  );
+  const [logo, setLogo] = useState("");
+  const [sign, setSign] = useState("");
   const [Name, setName] = useState("");
   const [isEnable, setEnable] = useState(true);
   //   const [username, setUsename] = useState("");
@@ -22,6 +15,8 @@ function DashForm() {
   const navigate = useNavigate();
   const [u_id, setUId] = useState(2);
 
+  const [uploadLogo, setUploadLogo] = useState("");
+  const [uploadSign, setUploadSign] = useState("");
 
   async function getUser() {
     const user = await checkUser();
@@ -55,66 +50,128 @@ function DashForm() {
       }
     );
   }, []);
+
+  const handleUpload = async (uploadType) => {
+    const formdata = new FormData();
+    const fileToUpload = uploadType === "logo" ? uploadLogo[0] : uploadSign[0];
+
+    formdata.append("file", fileToUpload);
+
+    var requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    };
+    const response = await fetch(
+      "https://api-stjudes.herokuapp.com/api/upload",
+      requestOptions
+    );
+    const responseData = await response.json();
+
+    if (response.status === 200) {
+      console.log(uploadType);
+      console.log(responseData.data);
+      if (uploadType === "logo") setLogo(responseData.data);
+      else if (uploadType === "sign") setSign(responseData.data);
+    } else console.log("Failed to upload");
+  };
+
   return (
     <div className="form-container">
       <h1>Add Your Information</h1>
       <form className="dash-form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <div>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Enter Username"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-          </div>
+        <div className="dash-form-item-upload"></div>
+        <div className="insti-name">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter Institution Name"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
+        </div>
+        <div className="dash-form-item-upload">
           <input
             type="text"
             name="logo"
             id="logo"
             placeholder="Enter Link for Logo of Institution"
+            value={logo}
             onChange={(e) => {
               setLogo(e.target.value);
             }}
           />
+          <input
+            className="file-input"
+            type="file"
+            onChange={(e) => setUploadLogo(e.target.files)}
+          />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleUpload("logo");
+            }}
+            className="btn btn-primary"
+          >
+            Upload
+          </button>
         </div>
-        <div>
+        <div className="dash-form-item-upload">
           <input
             type="text"
             name="sign"
             id="signature"
             placeholder="Enter link for Signature"
+            value={sign}
             onChange={(e) => {
               setSign(e.target.value);
             }}
           />
+          <input
+            className="file-input"
+            type="file"
+            onChange={(e) => setUploadSign(e.target.files)}
+          />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleUpload("sign");
+            }}
+            className="btn btn-primary"
+          >
+            Upload
+          </button>
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={!isEnable}>
+        <button type="submit" className="btn btn-success" disabled={!isEnable}>
           Submit
         </button>
       </form>
-      {isEnable ? <></> : <><button
-        onClick={() => {
-          downloadPpt();
-        }}
-        className="btn btn-primary"
-        style={{ marginRight: "50px" }}
-      >
-        Download
-      </button>
-        <button
-          onClick={() => {
-            issuePpt(u_id);
-          }}
-          className="btn btn-primary"
-        >
-          Issue
-        </button></>}
-
+      {isEnable ? (
+        <></>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              downloadPpt();
+            }}
+            className="btn btn-primary"
+            style={{ marginRight: "50px" }}
+          >
+            Download
+          </button>
+          <button
+            onClick={() => {
+              issuePpt(u_id);
+            }}
+            className="btn btn-primary"
+          >
+            Issue
+          </button>
+        </>
+      )}
     </div>
   );
 }

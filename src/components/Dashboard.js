@@ -39,10 +39,9 @@ function Dashboard() {
       }
     );
 
-    getUser().then((data) => {
-      console.log(data);
+    getUser().then((u_id) => {
       fetch(
-        `https://api-certi-portal.herokuapp.com/api/user/${data}/certificates?skip=0&take=100`
+        `https://api-certi-portal.herokuapp.com/api/user/${u_id}/certificates?skip=0&take=100`
       ).then((data) => {
         data.json().then((res) => {
           setHistory([...res.data.certificate]);

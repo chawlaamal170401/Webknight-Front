@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { addDataToCerti, downloadPpt, issuePpt } from "../utils/converter";
 import { useParams } from "react-router-dom";
+import { checkUser } from "../utils/converter";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 function DashForm() {
@@ -15,6 +19,20 @@ function DashForm() {
   //   const [username, setUsename] = useState("");
   const [certiTemplate, setCertiTemplate] = useState({});
   let { id } = useParams();
+  const navigate = useNavigate();
+  const [u_id, setUId] = useState(2);
+
+
+  async function getUser() {
+    const user = await checkUser();
+    if (!user) navigate("/login");
+    else return user.id;
+  }
+
+  getUser().then((d) => {
+    setUId(d);
+  });
+
   const onSubmit = (e) => {
     e.preventDefault();
     setEnable(false);
@@ -90,7 +108,7 @@ function DashForm() {
       </button>
         <button
           onClick={() => {
-            issuePpt();
+            issuePpt(u_id);
           }}
           className="btn btn-primary"
         >

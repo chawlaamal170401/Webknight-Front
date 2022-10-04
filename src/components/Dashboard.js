@@ -108,21 +108,23 @@ function Dashboard() {
       </div>
       <h4>History</h4>
 
-      <div className="dash-grid">
-        {history.map((item) => {
-          return (
-            <Card className="dash-certi">
-              <Card.Body>
-                <Link to={"certi/" + item.id}>
-                  <a href="#">
-                    <TbCertificate size={40} />
-                    {item.id}
-                  </a>
-                </Link>
-              </Card.Body>
-            </Card>
-          );
-        })}
+      <div className="container">
+        <div className="row">
+          {history.map((item) => {
+            return (
+              <Card className="col-2">
+                <Card.Body>
+                  <Link to={"certi/" + item.id}>
+                    <a href="#">
+                      <TbCertificate size={40} />
+                      {item.id}
+                    </a>
+                  </Link>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </div>
       </div>
       <Footer />
     </div>

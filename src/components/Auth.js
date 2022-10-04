@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkUser } from "../utils/converter";
 
-export default function Auth(props) {
+export default function Auth() {
   let [authMode, setAuthMode] = useState("signin");
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");

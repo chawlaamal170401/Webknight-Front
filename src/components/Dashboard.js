@@ -1,5 +1,5 @@
 import Carousel from "react-bootstrap/Carousel";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import pic from "../img.jpg";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
@@ -14,17 +14,23 @@ function Dashboard() {
   const [templates, setTemplates] = useState([]);
   const [history, setHistory] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   const navigate = useNavigate();
+
+
   useEffect(() => {
+
     if (document.getElementById("temp")) {
       document.getElementById("temp").remove();
     }
     async function getUser() {
       const user = await checkUser();
       if (!user) navigate("/login");
+      else return user.id;
     }
+
     getUser();
+
+
     fetch("https://api-certi-portal.herokuapp.com/api/template").then(
       (data) => {
         data.json().then((res) => {
@@ -32,13 +38,18 @@ function Dashboard() {
         });
       }
     );
-    fetch(
-      "https://api-certi-portal.herokuapp.com/api/user/2/certificates?skip=0&take=100"
-    ).then((data) => {
-      data.json().then((res) => {
-        setHistory([...res.data.certificate]);
+
+    getUser().then((data) => {
+      console.log(data);
+      fetch(
+        `https://api-certi-portal.herokuapp.com/api/user/${data}/certificates?skip=0&take=100`
+      ).then((data) => {
+        data.json().then((res) => {
+          setHistory([...res.data.certificate]);
+        });
       });
     });
+
   }, []);
   const onLogout = () => {
     localStorage.clear();

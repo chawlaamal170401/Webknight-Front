@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { addDataToCerti, downloadPpt, issuePpt } from "../utils/converter";
 import { useParams } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+
 
 function DashForm() {
   const [logo, setLogo] = useState(
@@ -74,17 +73,6 @@ function DashForm() {
               setSign(e.target.value);
             }}
           />
-        </div>
-        <div>
-          {/* <input
-            type="text"
-            name="instname"
-            id="institute"
-            placeholder="Enter Name of Institution"
-            onChange={(e) => {
-              setInstname(e.target.value);
-            }}
-          /> */}
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={!isEnable}>
